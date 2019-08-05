@@ -1,10 +1,14 @@
+// Let see
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define('ubs.my-app-bundle', factory) :
-  0;(global = global || self, (global.ubs = global.ubs || {}, global.ubs['my-app-bundle'] = factory()))
+  typeof define === 'function' && define.amd ? define('my-app-bundle', factory) :
+  (0);(global = global || self, (global.ubs = global.ubs || {}, global.ubs['my-app-bundle'] = factory()))
 }(this, function () { 'use strict';
 
-  const externalModule = console.log;
+  function externalModule(x) {
+    console.log(x);
+    debugger;
+  }
 
   function mount(element) {
     externalModule(element);
@@ -22,4 +26,4 @@
   return main;
 
 }));
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=my-app-bundle.js.map
