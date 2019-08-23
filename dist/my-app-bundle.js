@@ -1,4 +1,3 @@
-// Let see
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define('my-app-bundle', factory) :
@@ -26,4 +25,3 @@
   return main;
 
 }));
-//# sourceMappingURL=my-app-bundle.js.map

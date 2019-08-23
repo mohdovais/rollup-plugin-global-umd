@@ -1,4 +1,4 @@
-import customUMD from "./rollup/rollup-plugin-gumd";
+import customUMD from "./rollup/rollup-plugin-custom-umd";
 
 const name = "ubs.my-app-bundle";
 const moduleName = name.split(".").pop();

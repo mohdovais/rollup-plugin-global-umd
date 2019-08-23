@@ -51,13 +51,13 @@ function transform(code) {
   const iifeCalleeExpression = getIIFECallee(ast);
 
   if (iifeCalleeExpression === undefined) {
-    throw new Error('Could not find IIFE callee expression');
+    throw new Error("Could not find IIFE callee expression");
   }
 
   const alternateExpression = getExpressionLastAlternate(iifeCalleeExpression);
 
   if (alternateExpression === undefined) {
-    throw new Error('Could not find last alternate to condition expression');
+    throw new Error("Could not find last alternate to condition expression");
   }
 
   const {
@@ -84,15 +84,10 @@ function transform(code) {
 export default function globalUMD() {
   return {
     name: "custom-umd",
-    generateBundle: function(options, bundles, isWrite) {
-      Object.keys(bundles).forEach(function(bundleName) {
-        const bundle = bundles[bundleName];
-        const { code, isAsset, isEntry } = bundle;
-
-        if (options.format === "umd" && !isAsset && isEntry && isWrite) {
-          bundle.code = transform(code);
-        }
-      });
+    renderChunk: function(code, chunk, outputOptions) {
+      return outputOptions.format === "umd" && chunk.isEntry
+        ? transform(code)
+        : null;
     }
   };
 }
