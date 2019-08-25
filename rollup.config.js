@@ -1,17 +1,17 @@
-import customUMD from "./rollup/rollup-plugin-custom-umd";
-
-const name = "ubs.my-app-bundle";
-const moduleName = name.split(".").pop();
+import pkg from "./package.json";
+const external = Object.keys(require("./package.json").dependencies);
 
 export default {
-  input: "src/main.js",
-  output: {
-    file: `dist/${moduleName}.js`,
-    format: "umd",
-    name,
-    amd: {
-      id: moduleName
+  input: "src/index.js",
+  external,
+  output: [
+    {
+      file: pkg.main,
+      format: "cjs"
     },
-  },
-  plugins: [customUMD()]
+    {
+      file: pkg.module,
+      format: "esm"
+    }
+  ]
 };

@@ -1,17 +1,23 @@
-const { parse } = require("acorn");
+'use strict';
 
-const expressionStatement = node => node.type === "ExpressionStatement";
+function toArray(subject) {
+  return Array.isArray(subject)
+    ? subject
+    : subject !== null && subject !== undefined
+      ? [subject]
+      : [];
+}
 
 function chainedProperty(subject, chainString) {
-  const chain = Array.isArray(chainString)
-    ? chainString
-    : chainString.split(".");
+  if (chainString === undefined) {
+    return subject;
+  }
+
+  const chain = chainString.split(".");
   const count = chain.length;
 
-  let index = 0;
   let property = subject;
-
-  for (; index < count; index++) {
+  for (let index = 0; index < count; index++) {
     property = property[chain[index]];
     if (property === null || property === undefined) {
       break;
@@ -21,19 +27,16 @@ function chainedProperty(subject, chainString) {
   return property;
 }
 
-function toArray(subject) {
-  return Array.isArray(subject)
-    ? subject
-    : subject !== null && subject !== undefined
-    ? [subject]
-    : [];
-}
+const { parse } = require("acorn");
+
+const expressionStatement = node => node.type === "ExpressionStatement";
 
 function firstExpressionStatement(node) {
   return toArray(node).filter(expressionStatement)[0];
 }
 
-function getIIFECallee(node) {
+function getIIFECallee(code) {
+  const node = parse(code);
   return firstExpressionStatement(
     chainedProperty(
       firstExpressionStatement(node.body),
@@ -47,8 +50,7 @@ function getExpressionLastAlternate(node) {
 }
 
 function transform(code) {
-  const ast = parse(code);
-  const iifeCalleeExpression = getIIFECallee(ast);
+  const iifeCalleeExpression = getIIFECallee(code);
 
   if (iifeCalleeExpression === undefined) {
     throw new Error("Could not find IIFE callee expression");
@@ -81,7 +83,7 @@ function transform(code) {
   );
 }
 
-export default function globalUMD() {
+function globalUMD() {
   return {
     name: "custom-umd",
     renderChunk: function(code, chunk, outputOptions) {
@@ -91,3 +93,5 @@ export default function globalUMD() {
     }
   };
 }
+
+module.exports = globalUMD;

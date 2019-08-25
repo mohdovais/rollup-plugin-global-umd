@@ -1,15 +1,37 @@
 {
   "name": "rollup-plugin-global-umd",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Custom UMD module with global module exposed in all cases",
+  "main": "dist/rollup-plugin-global-umd.cjs.js",
+  "module": "dist/rollup-plugin-global-umd.es6.js",
+  "jsnext:main": "dist/rollup-plugin-global-umd.es6.js",
   "scripts": {
-    "test": "rollup -c"
+    "prebuild": "rm -rf dist",
+    "build": "rollup -c",
+    "pretest": "npm run build",
+    "test": "mocha"
   },
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Mohd Ovais",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohdovais/rollup-plugin-global-umd"
+  },
+  "bugs": {
+    "url": "https://github.com/mohdovais/rollup-plugin-global-umd/issues"
+  },
+  "homepage": "https://github.com/mohdovais/rollup-plugin-global-umd#readme",
+  "license": "MIT",
   "dependencies": {
-    "rollup": "^1.17.0"
+    "acorn": "^7.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^6.2.1",
+    "mocha": "^6.2.0",
+    "rollup": "^1.17.0",
+    "rollup-plugin-terser": "^5.1.1"
+  }
 }
