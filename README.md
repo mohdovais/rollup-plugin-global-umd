@@ -2,7 +2,7 @@
 
 A custom Rollup plugin to generate UMD package where the app is always exposed as global variable. Rollup does not provide hooks to modify UMD definitions.
 
-Usage
+### Usage
 
 _rollup.config.js_
 ```javascript
