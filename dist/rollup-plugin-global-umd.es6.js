@@ -1,3 +1,5 @@
+import { createFilter } from 'rollup-pluginutils';
+
 function toArray(subject) {
   return Array.isArray(subject)
     ? subject
@@ -81,10 +83,18 @@ function transform(code) {
   );
 }
 
-function globalUMD() {
+function globalUMD(userOptions = {}) {
+  const filter = createFilter(userOptions.include, userOptions.exclude, {
+    resolve: false
+  });
+
   return {
     name: "custom-umd",
     renderChunk: function(code, chunk, outputOptions) {
+      if (!filter(chunk.fileName)) {
+        return null;
+      }
+
       return outputOptions.format === "umd" && chunk.isEntry
         ? transform(code)
         : null;

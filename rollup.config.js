@@ -1,5 +1,5 @@
 import pkg from "./package.json";
-const external = Object.keys(require("./package.json").dependencies);
+const external = Object.keys(pkg.peerDependencies);
 
 export default {
   input: "src/index.js",

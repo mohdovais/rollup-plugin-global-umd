@@ -27,12 +27,14 @@
   "license": "MIT",
   "peerDependencies": {
     "acorn": "7.x",
-    "rollup": "1.x"
+    "rollup": "1.x",
+    "rollup-pluginutils": "2.x"
   },
   "devDependencies": {
-    "eslint": "^6.2.1",
+    "eslint": "^6.2.2",
     "mocha": "^6.2.0",
-    "rollup": "^1.17.0",
-    "rollup-plugin-terser": "^5.1.1"
+    "rollup": "^1.20.2",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-pluginutils": "^2.8.1"
   }
 }
