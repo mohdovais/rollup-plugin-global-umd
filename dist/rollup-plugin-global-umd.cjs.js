@@ -98,7 +98,10 @@ function globalUMD(userOptions = {}) {
       }
 
       return outputOptions.format === "umd" && chunk.isEntry
-        ? transform(code)
+        ? {
+            code: transform(code),
+            map: null
+          }
         : null;
     }
   };
